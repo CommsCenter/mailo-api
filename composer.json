@@ -1,0 +1,16 @@
+{
+    "name": "pckg-app/mailo-api",
+    "description": "PHP API for Mailo mailing service",
+    "homepage": "https://github.com/pckg-app/mailo-api",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Bojan Rajh",
+            "email": "schtr4jh@schtr4jh.net"
+        }
+    ],
+    "require": {
+        "pckg-app/api": "dev-master"
+    },
+    "minimum-stability": "dev"
+}

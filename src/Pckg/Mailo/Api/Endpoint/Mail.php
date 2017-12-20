@@ -15,4 +15,9 @@ class Mail extends Endpoint
      */
     protected $path = 'mail';
 
+    public function send($data = [])
+    {
+        return $this->postAndDataResponse($data, 'mail/send', 'mail');
+    }
+
 }

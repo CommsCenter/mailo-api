@@ -12,5 +12,10 @@
     "require": {
         "pckg-app/api": "dev-master"
     },
-    "minimum-stability": "dev"
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-0": {
+            "Pckg": "src\\"
+        }
+    }
 }

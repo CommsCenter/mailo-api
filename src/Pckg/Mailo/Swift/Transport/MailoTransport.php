@@ -1,5 +1,12 @@
-<?php use Pckg\Mail\Service\Mail\Attachment;
+<?php namespace Pckg\Mailo\Swift\Transport;
+
+use Pckg\Mail\Service\Mail\Attachment;
 use Pckg\Mailo\Api\Api;
+use Swift_Events_EventDispatcher;
+use Swift_Events_EventListener;
+use Swift_Events_SendEvent;
+use Swift_Mime_Message;
+use Swift_Transport;
 
 /**
  * Implements REST API call for Mailo mailing service.
@@ -65,6 +72,7 @@ class MailoTransport implements Swift_Transport
             }
         }
 
+        dd('in transport');
         $this->callMailoApi($message);
 
         if ($evt) {

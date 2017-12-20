@@ -1,12 +1,4 @@
-<?php
-
-/*
- * This file is part of SwiftMailer.
- * (c) 2009 Fabien Potencier <fabien.potencier@gmail.com>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
+<?php use Pckg\Mail\Service\Mail\Attachment;
 use Pckg\Mailo\Api\Api;
 
 /**
@@ -18,6 +10,9 @@ class MailoTransport implements Swift_Transport
     /** The event dispatcher from the plugin API */
     private $_eventDispatcher;
 
+    /**
+     * @var Api
+     */
     protected $mailoApi;
 
     /**
@@ -96,9 +91,32 @@ class MailoTransport implements Swift_Transport
         $this->_eventDispatcher->bindEventListener($plugin);
     }
 
+    /**
+     * @param Swift_Mime_Message $message
+     */
     private function callMailoApi(Swift_Mime_Message $message)
     {
-        $this->mailoApi->mail()->send();
+        $subject = $message->getSubject();
+        $content = $message->getBody();
+        $from = $message->getFrom();
+        $to = $message->getTo();
+
+        $attachments = [];
+        foreach ($message->getChildren() as $child) {
+            if ($child instanceof Attachment) {
+                $attachments[] = [
+                    'path' => $child->getPath(),
+                    'name' => $child->getFilename(),
+                ];
+            }
+        }
+
+        $this->mailoApi->mail()->send([
+                                          'from'    => $from,
+                                          'to'      => $to,
+                                          'subject' => $subject,
+                                          'content' => $content,
+                                      ], $attachments);
     }
 
 }

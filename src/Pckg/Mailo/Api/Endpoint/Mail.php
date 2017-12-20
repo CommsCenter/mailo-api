@@ -15,9 +15,19 @@ class Mail extends Endpoint
      */
     protected $path = 'mail';
 
-    public function send($data = [])
+    public function send($data = [], $attachments = [])
     {
-        return $this->postAndDataResponse($data, 'mail/send', 'mail');
+        $options = [
+            'multipart' => [],
+        ];
+        foreach ($attachments as $attachment) {
+            $options['multipart'][] = [
+                'name'     => $attachment['name'],
+                'contents' => file_get_contents($attachment['path']),
+            ];
+        }
+
+        return $this->postAndDataResponse($data, 'mail/send', 'mail', $options);
     }
 
 }

@@ -115,7 +115,7 @@ class MailoTransport implements Swift_Transport
                                           'from'    => $from,
                                           'to'      => $to,
                                           'subject' => $subject,
-                                          'content' => $content,
+                                          'html'    => $content,
                                       ], $attachments);
     }
 

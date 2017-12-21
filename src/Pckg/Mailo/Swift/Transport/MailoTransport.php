@@ -2,9 +2,7 @@
 
 use Pckg\Mail\Service\Mail\Attachment;
 use Pckg\Mailo\Api\Api;
-use Swift_Events_EventDispatcher;
 use Swift_Events_EventListener;
-use Swift_Events_SendEvent;
 use Swift_Mime_Message;
 use Swift_Transport;
 
@@ -14,9 +12,6 @@ use Swift_Transport;
 class MailoTransport implements Swift_Transport
 {
 
-    /** The event dispatcher from the plugin API */
-    private $_eventDispatcher;
-
     /**
      * @var Api
      */
@@ -25,9 +20,8 @@ class MailoTransport implements Swift_Transport
     /**
      * Constructor.
      */
-    public function __construct(Swift_Events_EventDispatcher $eventDispatcher, Api $mailoApi)
+    public function __construct(Api $mailoApi)
     {
-        $this->_eventDispatcher = $eventDispatcher;
         $this->mailoApi = $mailoApi;
     }
 
@@ -65,20 +59,7 @@ class MailoTransport implements Swift_Transport
      */
     public function send(Swift_Mime_Message $message, &$failedRecipients = null)
     {
-        if ($evt = $this->_eventDispatcher->createSendEvent($this, $message)) {
-            $this->_eventDispatcher->dispatchEvent($evt, 'beforeSendPerformed');
-            if ($evt->bubbleCancelled()) {
-                return 0;
-            }
-        }
-
-        dd('in transport');
         $this->callMailoApi($message);
-
-        if ($evt) {
-            $evt->setResult(Swift_Events_SendEvent::RESULT_SUCCESS);
-            $this->_eventDispatcher->dispatchEvent($evt, 'sendPerformed');
-        }
 
         $count = (
             count((array)$message->getTo())
@@ -96,7 +77,6 @@ class MailoTransport implements Swift_Transport
      */
     public function registerPlugin(Swift_Events_EventListener $plugin)
     {
-        $this->_eventDispatcher->bindEventListener($plugin);
     }
 
     /**

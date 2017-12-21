@@ -18,10 +18,11 @@ class Mail extends Endpoint
     public function send($data = [], $attachments = [])
     {
         $options = [
-            'multipart' => [],
+            //'multipart' => [],
         ];
+        $data['attachments'] = [];
         foreach ($attachments as $attachment) {
-            $options['multipart'][] = [
+            $data['attachments'][] = [
                 'name'     => $attachment['name'],
                 'contents' => file_get_contents($attachment['path']),
             ];

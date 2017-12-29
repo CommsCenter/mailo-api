@@ -2,6 +2,7 @@
 
 use Pckg\Mail\Service\Mail\Attachment;
 use Pckg\Mailo\Api\Api;
+use Pckg\Mailo\Api\Endpoint\Mail;
 use Swift_Events_EventListener;
 use Swift_Mime_Message;
 use Swift_Transport;
@@ -16,6 +17,11 @@ class MailoTransport implements Swift_Transport
      * @var Api
      */
     protected $mailoApi;
+
+    /**
+     * @var Mail
+     */
+    protected $mailoMail;
 
     /**
      * Constructor.
@@ -99,12 +105,17 @@ class MailoTransport implements Swift_Transport
             }
         }
 
-        $this->mailoApi->mail()->send([
-                                          'from'    => $from,
-                                          'to'      => $to,
-                                          'subject' => $subject,
-                                          'html'    => $content,
-                                      ], $attachments);
+        $this->mailoMail = $this->mailoApi->mail()->send([
+                                                             'from'    => $from,
+                                                             'to'      => $to,
+                                                             'subject' => $subject,
+                                                             'html'    => $content,
+                                                         ], $attachments);
+    }
+
+    public function getMailoMail()
+    {
+        return $this->mailoMail;
     }
 
 }

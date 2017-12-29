@@ -31,4 +31,14 @@ class Mail extends Endpoint
         return $this->postAndDataResponse($data, 'mail/send', 'mail', $options);
     }
 
+    public function fake($data = [])
+    {
+        return $this->postAndDataResponse($data, 'mail/fake', 'mail');
+    }
+
+    public function readAt($datetime)
+    {
+        return $this->postAndDataResponse(['at' => $datetime], 'mail/' . $this->id . '/read', 'mail');
+    }
+
 }

@@ -110,6 +110,11 @@ class MailoTransport implements Swift_Transport
                                                              'to'      => $to,
                                                              'subject' => $subject,
                                                              'html'    => $content,
+                                                             'webhook' => [
+                                                                 // some url where we process read notifications
+                                                                 // but we need to make communication secure :/
+                                                                 'read' => '',
+                                                             ],
                                                          ], $attachments);
     }
 

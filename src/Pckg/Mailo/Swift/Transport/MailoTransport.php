@@ -24,6 +24,15 @@ class MailoTransport implements Swift_Transport
     protected $mailoMail;
 
     /**
+     * @var string
+     */
+    protected $mailType = self::TYPE_TRANSACTIONAL;
+
+    const TYPE_TRANSACTIONAL = 'transactional';
+
+    const TYPE_PROMO = 'promo';
+
+    /**
      * Constructor.
      */
     public function __construct(Api $mailoApi)
@@ -110,10 +119,11 @@ class MailoTransport implements Swift_Transport
                                                              'to'      => $to,
                                                              'subject' => $subject,
                                                              'html'    => $content,
+                                                             'type'    => $this->mailType,
                                                              'webhook' => [
                                                                  // some url where we process read notifications
                                                                  // but we need to make communication secure :/
-                                                                 'read' => '',
+                                                                 'read' => 'http://mailo.tmp.foobar.si/webhook',
                                                              ],
                                                          ], $attachments);
     }
@@ -121,6 +131,13 @@ class MailoTransport implements Swift_Transport
     public function getMailoMail()
     {
         return $this->mailoMail;
+    }
+
+    public function setMailType($type)
+    {
+        $this->mailType = $type;
+
+        return $this;
     }
 
 }

@@ -23,8 +23,8 @@ class Mail extends Endpoint
         $data['attachments'] = [];
         foreach ($attachments as $attachment) {
             $data['attachments'][] = [
-                'name'     => $attachment['name'],
-                'contents' => file_get_contents($attachment['path']),
+                'name'    => $attachment['name'],
+                'content' => file_get_contents($attachment['path']),
             ];
         }
 

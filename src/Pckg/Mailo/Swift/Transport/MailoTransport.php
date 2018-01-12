@@ -28,6 +28,10 @@ class MailoTransport implements Swift_Transport
      */
     protected $mailType = self::TYPE_TRANSACTIONAL;
 
+    protected $campaign = null;
+
+    protected $queue = null;
+
     const TYPE_TRANSACTIONAL = 'transactional';
 
     const TYPE_PROMO = 'promo';
@@ -115,16 +119,18 @@ class MailoTransport implements Swift_Transport
         }
 
         $this->mailoMail = $this->mailoApi->mail()->send([
-                                                             'from'    => $from,
-                                                             'to'      => $to,
-                                                             'subject' => $subject,
-                                                             'html'    => $content,
-                                                             'type'    => $this->mailType,
-                                                             'webhook' => [
+                                                             'from'     => $from,
+                                                             'to'       => $to,
+                                                             'subject'  => $subject,
+                                                             'html'     => $content,
+                                                             'type'     => $this->mailType,
+                                                             'webhook'  => [
                                                                  // some url where we process read notifications
                                                                  // but we need to make communication secure :/
                                                                  'read' => 'http://mailo.tmp.foobar.si/webhook',
                                                              ],
+                                                             'campaign' => $this->campaign,
+                                                             'send_at'  => $this->queue,
                                                          ], $attachments);
     }
 
@@ -136,6 +142,20 @@ class MailoTransport implements Swift_Transport
     public function setMailType($type)
     {
         $this->mailType = $type;
+
+        return $this;
+    }
+
+    public function setCampaign($campaign)
+    {
+        $this->campaign = $campaign;
+
+        return $this;
+    }
+
+    public function setQueue($queue)
+    {
+        $this->queue = $queue;
 
         return $this;
     }

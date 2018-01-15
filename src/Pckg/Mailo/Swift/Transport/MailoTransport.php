@@ -34,7 +34,7 @@ class MailoTransport implements Swift_Transport
 
     const TYPE_TRANSACTIONAL = 'transactional';
 
-    const TYPE_PROMO = 'promo';
+    const TYPE_NEWSLETTER = 'newsletter';
 
     /**
      * Constructor.

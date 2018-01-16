@@ -34,11 +34,13 @@ class Api extends PckgApi
     }
 
     /**
+     * @param array $data
+     *
      * @return Mail
      */
-    public function mail()
+    public function mail($data = [])
     {
-        return new Mail($this);
+        return new Mail($this, $data);
     }
 
     /**

@@ -2,6 +2,7 @@
 
 use Pckg\Mail\Service\Mail\Attachment;
 use Pckg\Mailo\Api\Api;
+use Pckg\Mailo\Api\Endpoint\Mail;
 use Swift_Events_EventListener;
 use Swift_Mime_Message;
 use Swift_Transport;
@@ -16,6 +17,24 @@ class MailoTransport implements Swift_Transport
      * @var Api
      */
     protected $mailoApi;
+
+    /**
+     * @var Mail
+     */
+    protected $mailoMail;
+
+    /**
+     * @var string
+     */
+    protected $mailType = self::TYPE_TRANSACTIONAL;
+
+    protected $campaign = null;
+
+    protected $queue = null;
+
+    const TYPE_TRANSACTIONAL = 'transactional';
+
+    const TYPE_NEWSLETTER = 'newsletter';
 
     /**
      * Constructor.
@@ -99,12 +118,46 @@ class MailoTransport implements Swift_Transport
             }
         }
 
-        $this->mailoApi->mail()->send([
-                                          'from'    => $from,
-                                          'to'      => $to,
-                                          'subject' => $subject,
-                                          'html'    => $content,
-                                      ], $attachments);
+        $this->mailoMail = $this->mailoApi->mail()->send([
+                                                             'from'     => $from,
+                                                             'to'       => $to,
+                                                             'subject'  => $subject,
+                                                             'html'     => $content,
+                                                             'type'     => $this->mailType,
+                                                             'webhook'  => [
+                                                                 // some url where we process read notifications
+                                                                 // but we need to make communication secure :/
+                                                                 'read' => 'http://mailo.tmp.foobar.si/webhook',
+                                                             ],
+                                                             'campaign' => $this->campaign,
+                                                             'send_at'  => $this->queue,
+                                                         ], $attachments);
+    }
+
+    public function getMailoMail()
+    {
+        return $this->mailoMail;
+    }
+
+    public function setMailType($type)
+    {
+        $this->mailType = $type;
+
+        return $this;
+    }
+
+    public function setCampaign($campaign)
+    {
+        $this->campaign = $campaign;
+
+        return $this;
+    }
+
+    public function setQueue($queue)
+    {
+        $this->queue = $queue;
+
+        return $this;
     }
 
 }

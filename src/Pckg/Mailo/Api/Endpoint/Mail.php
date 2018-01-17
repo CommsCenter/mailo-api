@@ -23,12 +23,22 @@ class Mail extends Endpoint
         $data['attachments'] = [];
         foreach ($attachments as $attachment) {
             $data['attachments'][] = [
-                'name'     => $attachment['name'],
-                'contents' => file_get_contents($attachment['path']),
+                'name'    => $attachment['name'],
+                'content' => file_get_contents($attachment['path']),
             ];
         }
 
         return $this->postAndDataResponse($data, 'mail/send', 'mail', $options);
+    }
+
+    public function fake($data = [])
+    {
+        return $this->postAndDataResponse($data, 'mail/fake', 'mail');
+    }
+
+    public function readAt($datetime)
+    {
+        return $this->postAndDataResponse(['at' => $datetime], 'mail/' . $this->id . '/read', 'mail');
     }
 
 }

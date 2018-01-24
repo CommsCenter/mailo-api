@@ -41,4 +41,13 @@ class App extends Endpoint
             ->api->getApiResponse('mails');
     }
 
+    /**
+     * @return array|mixed
+     */
+    public function getCampaignsOpenRates()
+    {
+        return $this->getAndDataResponse('app/campaignsOpenRates')
+            ->api->getApiResponse('campaigns');
+    }
+
 }

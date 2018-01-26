@@ -1,5 +1,6 @@
 <?php namespace Pckg\Mailo\Api\Endpoint;
 
+use GuzzleHttp\RequestOptions;
 use Pckg\Api\Endpoint;
 
 /**
@@ -28,8 +29,9 @@ class App extends Endpoint
      */
     public function getAddressesOpenRates()
     {
-        return $this->getAndDataResponse('app/addressesOpenRates')
-            ->api->getApiResponse('addresses');
+        return $this->getAndDataResponse('app/addressesOpenRates', null, [
+            RequestOptions::TIMEOUT => 15,
+        ])->api->getApiResponse('addresses');
     }
 
     /**
@@ -37,7 +39,9 @@ class App extends Endpoint
      */
     public function getMailsOpenRates()
     {
-        return $this->getAndDataResponse('app/mailsOpenRates')
+        return $this->getAndDataResponse('app/mailsOpenRates', null, [
+            RequestOptions::TIMEOUT => 15,
+        ])
             ->api->getApiResponse('mails');
     }
 
@@ -46,7 +50,9 @@ class App extends Endpoint
      */
     public function getCampaignsOpenRates()
     {
-        return $this->getAndDataResponse('app/campaignsOpenRates')
+        return $this->getAndDataResponse('app/campaignsOpenRates', null, [
+            RequestOptions::TIMEOUT => 15,
+        ])
             ->api->getApiResponse('campaigns');
     }
 

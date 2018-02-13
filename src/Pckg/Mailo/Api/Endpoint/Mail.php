@@ -1,5 +1,6 @@
 <?php namespace Pckg\Mailo\Api\Endpoint;
 
+use GuzzleHttp\RequestOptions;
 use Pckg\Api\Endpoint;
 
 /**
@@ -30,7 +31,8 @@ class Mail extends Endpoint
 
     public function sendMultiple($mails)
     {
-        return $this->postAndDataResponse(['mails' => $mails], 'mail/send-multiple', 'mails');
+        return $this->postAndDataResponse(['mails' => $mails], 'mail/send-multiple', 'mails',
+                                          [RequestOptions::TIMEOUT => 120]);
     }
 
     public function fake($data = [])

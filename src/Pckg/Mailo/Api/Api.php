@@ -29,7 +29,7 @@ class Api extends PckgApi
             RequestOptions::HEADERS => [
                 'X-Mailo-Api-Key' => $this->apiKey,
             ],
-            RequestOptions::TIMEOUT => 5,
+            RequestOptions::TIMEOUT => 15,
         ];
     }
 

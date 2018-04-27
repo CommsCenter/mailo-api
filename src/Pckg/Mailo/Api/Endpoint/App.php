@@ -21,7 +21,7 @@ class App extends Endpoint
      */
     public function createAppKey()
     {
-        return (new AppKey($this->api))->create(['app_id' => $this->id, 'active' => true]);
+        return (new AppKey($this->api))->create(['app_id' => $this->id, 'valid' => true]);
     }
 
     /**

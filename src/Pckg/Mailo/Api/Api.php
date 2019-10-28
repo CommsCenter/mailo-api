@@ -4,6 +4,7 @@ use GuzzleHttp\RequestOptions;
 use Pckg\Api\Api as PckgApi;
 use Pckg\Mailo\Api\Endpoint\App;
 use Pckg\Mailo\Api\Endpoint\AppKey;
+use Pckg\Mailo\Api\Endpoint\Domain;
 use Pckg\Mailo\Api\Endpoint\Mail;
 
 /**
@@ -57,6 +58,14 @@ class Api extends PckgApi
     public function appKey()
     {
         return new AppKey($this);
+    }
+
+    /**
+     * @return Domain
+     */
+    public function domain()
+    {
+        return new Domain($this);
     }
 
 }

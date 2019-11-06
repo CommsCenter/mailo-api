@@ -2,6 +2,7 @@
 
 use GuzzleHttp\RequestOptions;
 use Pckg\Api\Endpoint;
+use Pckg\Database\Obj;
 
 /**
  * Class Domain
@@ -19,23 +20,9 @@ class Domain extends Endpoint
     /**
      * @return array|mixed
      */
-    public function getDKIM()
+    public function getDKIM($domain, $selector = 'mailo')
     {
-        return $this->getAndDataResponse('domain/dkim', null, [
-            RequestOptions::TIMEOUT => 15,
-        ])->api->getApiResponse();
-    }
-
-    /**
-     * @return array|mixed
-     */
-    public function register($domain)
-    {
-        return $this->postAndDataResponse([
-            'domain' => $domain,
-                                          ], 'domain/register', null, [
-            RequestOptions::TIMEOUT => 15,
-        ])->api->getApiResponse();
+        return $this->api->postApi('domain/' . $domain . '/dkim/' . $selector)->getApiResponse('dkim');
     }
 
 }

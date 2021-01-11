@@ -127,7 +127,7 @@ class MailoTransport implements Swift_Transport
                                                              'webhook'  => [
                                                                  // some url where we process read notifications
                                                                  // but we need to make communication secure :/
-                                                                 'read' => 'https://mailo.foobar.si/webhook',
+                                                                 'read' => 'https://comms.guru/webhook',
                                                              ],
                                                              'campaign' => $this->campaign,
                                                              'send_at'  => $this->queue,

@@ -15,14 +15,14 @@ class Domain extends Endpoint
     /**
      * @var string
      */
-    protected $path = 'domain';
+    protected $path = 'domains';
 
     /**
      * @return array|mixed
      */
     public function getDKIM($domain, $selector = 'mailo')
     {
-        return $this->api->postApi('domain/' . $domain . '/dkim/' . $selector)->getApiResponse('dkim');
+        return $this->api->postApi('domains/' . $domain . '/dkim/' . $selector)->getApiResponse('dkim');
     }
 
 }

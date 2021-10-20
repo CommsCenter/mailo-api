@@ -21,7 +21,7 @@ class Api extends PckgApi
      * @param $endpoint
      * @param $apiKey
      */
-    public function __construct($endpoint, $apiKey)
+    public function __construct(?string $endpoint, ?string $apiKey)
     {
         $this->endpoint = $endpoint;
         $this->apiKey = $apiKey;

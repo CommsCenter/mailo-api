@@ -10,7 +10,8 @@
         }
     ],
     "require": {
-        "pckg-app/api": "dev-master"
+        "php": ">=8.0",
+        "pckg-app/api": "dev-next-8.0"
     },
     "minimum-stability": "dev",
     "autoload": {

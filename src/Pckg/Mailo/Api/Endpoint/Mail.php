@@ -18,12 +18,32 @@ class Mail extends Endpoint
 
     public function send($mail = [], $attachments = [])
     {
-        $mail['attachments'] = [];
-        foreach ($attachments as $attachment) {
-            $mail['attachments'][] = [
-                'name'    => $attachment['name'],
-                'content' => file_get_contents($attachment['path']),
+        if ($attachments) {
+            $options = [
+                'multipart' => [],
             ];
+
+            $mail['attachments'] = [];
+            foreach ($attachments as $i => $attachment) {
+                $key = 'upload' . $i;
+                $mail['attachments'][] = [
+                    'name' => $attachment['name'],
+                    'key' => $key,
+                ];
+                $options['multipart'][] = [
+                    'name' => $key,
+                    'filename' => $attachment['name'],
+                    'contents' => file_get_contents($attachment['path']),
+                ];
+            }
+
+            // add original body
+            $options['multipart'][] = [
+                'name' => 'body',
+                'contents' => json_encode($mail),
+            ];
+
+            return $this->postAndDataResponse([], 'mail/send', 'mail', $options);
         }
 
         return $this->postAndDataResponse($mail, 'mail/send', 'mail');

@@ -40,6 +40,7 @@ class Mail extends Endpoint
             // add original body
             $options['multipart'][] = [
                 'name' => 'body',
+                'filename' => 'body',
                 'contents' => json_encode($mail),
             ];
 

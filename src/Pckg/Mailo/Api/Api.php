@@ -1,4 +1,6 @@
-<?php namespace Pckg\Mailo\Api;
+<?php
+
+namespace Pckg\Mailo\Api;
 
 use GuzzleHttp\RequestOptions;
 use Pckg\Api\Api as PckgApi;
@@ -14,12 +16,8 @@ use Pckg\Mailo\Api\Endpoint\Mail;
  */
 class Api extends PckgApi
 {
-
     /**
      * Api constructor.
-     *
-     * @param $endpoint
-     * @param $apiKey
      */
     public function __construct(?string $endpoint, ?string $apiKey)
     {
@@ -67,5 +65,4 @@ class Api extends PckgApi
     {
         return new Domain($this);
     }
-
 }

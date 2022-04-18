@@ -1,4 +1,6 @@
-<?php namespace Pckg\Mailo\Api\Endpoint;
+<?php
+
+namespace Pckg\Mailo\Api\Endpoint;
 
 use Pckg\Api\Endpoint;
 
@@ -9,10 +11,8 @@ use Pckg\Api\Endpoint;
  */
 class AppKey extends Endpoint
 {
-
     /**
      * @var string
      */
     protected $path = 'appKey';
-
 }

@@ -1,4 +1,6 @@
-<?php namespace Pckg\Mailo\Swift\Transport;
+<?php
+
+namespace Pckg\Mailo\Swift\Transport;
 
 use Pckg\Mail\Service\Mail\Attachment;
 use Pckg\Mailo\Api\Api;
@@ -12,7 +14,6 @@ use Swift_Transport;
  */
 class MailoTransport implements Swift_Transport
 {
-
     /**
      * @var Api
      */
@@ -110,6 +111,7 @@ class MailoTransport implements Swift_Transport
 
         $attachments = [];
         foreach ($message->getChildren() as $child) {
+            // @phpstan-ignore-next-line
             if ($child instanceof Attachment) {
                 $attachments[] = [
                     'path' => $child->getPath(),
@@ -159,5 +161,4 @@ class MailoTransport implements Swift_Transport
 
         return $this;
     }
-
 }

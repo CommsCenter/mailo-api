@@ -1,4 +1,6 @@
-<?php namespace Pckg\Mailo\Api\Endpoint;
+<?php
+
+namespace Pckg\Mailo\Api\Endpoint;
 
 use GuzzleHttp\RequestOptions;
 use Pckg\Api\Endpoint;
@@ -7,10 +9,10 @@ use Pckg\Api\Endpoint;
  * Class App
  *
  * @package Pckg\Mailo\Api\Endpoint
+ * @property int|string $id
  */
 class App extends Endpoint
 {
-
     /**
      * @var string
      */
@@ -21,7 +23,12 @@ class App extends Endpoint
      */
     public function createAppKey()
     {
-        return (new AppKey($this->api))->create(['app_id' => $this->id, 'valid' => true]);
+        /**
+         * @var AppKey $appKey
+         */
+        $appKey = (new AppKey($this->api))->create(['app_id' => $this->id, 'valid' => true]);
+
+        return $appKey;
     }
 
     /**
@@ -55,5 +62,4 @@ class App extends Endpoint
         ])
             ->api->getApiResponse('campaigns');
     }
-
 }

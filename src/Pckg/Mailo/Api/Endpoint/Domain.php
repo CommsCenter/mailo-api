@@ -1,4 +1,6 @@
-<?php namespace Pckg\Mailo\Api\Endpoint;
+<?php
+
+namespace Pckg\Mailo\Api\Endpoint;
 
 use GuzzleHttp\RequestOptions;
 use Pckg\Api\Endpoint;
@@ -11,7 +13,6 @@ use Pckg\Database\Obj;
  */
 class Domain extends Endpoint
 {
-
     /**
      * @var string
      */
@@ -24,5 +25,4 @@ class Domain extends Endpoint
     {
         return $this->api->postApi('domains/' . $domain . '/dkim/' . $selector)->getApiResponse('dkim');
     }
-
 }
